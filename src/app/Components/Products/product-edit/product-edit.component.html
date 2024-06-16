@@ -1,0 +1,117 @@
+<form #Form="ngForm" (submit)="OnSubmit()">
+    <h2 style=" color:darkgreen">Product Edit</h2>
+
+    <div class="form-group row">
+        <label for="name" class="col-md-4 required">Name: </label>
+        <input type="text"
+               id="name"
+               name="name"
+               class="form-control-sm  col-md-8"
+               required
+               [(ngModel)]="model.name"
+               #patName="ngModel" />
+        <div *ngIf="patName.invalid && (patName.dirty && patName.touched)"
+             class="alert">
+            Enter a valid name.
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="brand" class="col-md-4 required">Brand: </label>
+        <input type="text"
+               id="brand"
+               name="brand"
+               class="form-control-sm  col-md-8"
+               required
+               [(ngModel)]="model.brand"
+               #brand="ngModel" />
+        <div *ngIf="brand.invalid && (brand.dirty && brand.touched)"
+             class="alert">
+            Enter a brand name.
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+
+        <label class="col-md-4 required">Type: </label>
+        <div class="col-md-8">
+            @for (type of types; track type; let index = $index) {
+            <input type="radio" required
+                   [(ngModel)]="model.type" style="margin-left:15px" name="types" [value]="type" [id]="type+index" />
+
+            <label for="{{type+index}}" style="margin-left:8px; margin-right:10px">{{type}}</label>
+            }
+        </div>
+    </div>
+
+
+    <hr />
+    <h4 style=" color:darkblue"><strong>Edit Variants</strong></h4>
+
+
+    <table class="table table-responsive-sm table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Color
+                </th>
+                <th>
+                    specification
+                </th>
+                <th>
+                    Size
+                </th>
+
+                <th>
+                    <button type="button" class="btn btn-info" (click)="AddVariant()">Add New</button>
+                </th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let variant of model.variants; let i = index">
+                <td class="form-group">
+                    <input type="text"
+                           name="color[{{i}}]"
+                           class="form-control"
+                           required
+                           [(ngModel)]="variant.color" />
+
+                </td>
+                <td class="form-group">
+                    <input type="text"
+                           name="specification[{{i}}]"
+                           class="form-control"
+                           required
+                           [(ngModel)]="variant.specification" />
+
+                </td>
+                
+                <td class="form-group">
+                    <select [(ngModel)]="variant.size" name="size[{{i}}]" class="form-control">
+                        <option *ngFor="let size of sizes" [value]="size.value">
+                            {{ size.key }}
+                        </option>
+                    </select>
+
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-warning" (click)="DeleteVariant(i)">Delete</button>
+                </td>
+        </tbody>
+
+    </table>
+
+
+
+
+
+    <hr />
+    <div style="text-align:center;">
+        <button class="btn btn-success" type="submit" [disabled]="Form.invalid">Save</button>
+        <a class="btn btn-outline-info" routerLink="/ProductList">Back</a>
+
+    </div>
+</form>

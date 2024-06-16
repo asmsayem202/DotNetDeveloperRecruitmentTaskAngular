@@ -1,0 +1,33 @@
+<!-- <div style="text-align:center;"><strong style=" font-size:36px; color:darkblue">Product Management System</strong></div> -->
+<a routerLink="/ProductCreate/create" class="btn btn-success">Add New Product</a>
+
+<hr />
+<div>
+    <h2 >Product List</h2>
+    <table class="table table-bordered table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pro of model">
+                <td>{{pro.id}}</td>
+                <td>{{pro.name}}</td>
+                <td>{{pro.brand}}</td>
+                <td>{{pro.type}}</td>
+
+                <td class="btn-group">
+
+                    <a [routerLink]="['/ProductEdit/edit/', pro.id]" class="btn btn-warning">Edit</a>
+                    <a [routerLink]="['/ProductDetails/details/', pro.id]" class="btn btn-info">Details</a>
+                    <button class="btn btn-danger" (click)="DeleteProduct(pro)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
