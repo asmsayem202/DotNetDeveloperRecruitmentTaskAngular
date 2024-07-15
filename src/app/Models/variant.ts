@@ -9,7 +9,6 @@ export class Variant {
   product!: Product;
 }
 
-
 export enum Size {
   Large = 'Large',
   Medium = 'Medium',
